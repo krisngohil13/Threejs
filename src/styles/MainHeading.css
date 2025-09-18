@@ -1,0 +1,108 @@
+/* Base styles */
+.heading-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10%;
+    overflow: hidden;
+    perspective: 1000px;
+}
+
+/* Simple blur effect */
+.heading-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 1;
+}
+
+/* Content styles */
+.heading-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    transform-style: preserve-3d;
+}
+
+.heading-line {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 200;
+    color: #ffffff;
+    line-height: 1.1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    will-change: transform;
+}
+
+.heading-line.highlight {
+    color: #9370DB;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.heading-description {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: #888;
+    margin-top: 2rem;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    will-change: transform;
+}
+
+/* Parallax */
+.parallax {
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+
+/* Animations */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .heading-container {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    /* Reduce parallax effect on smaller screens */
+    .parallax {
+        transition: transform 0.2s ease-out;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading-line {
+        font-size: clamp(2rem, 6vw, 3rem);
+    }
+    
+    .heading-description {
+        font-size: 1rem;
+    }
+
+    /* Disable parallax on mobile */
+    .parallax {
+        transform: none !important;
+        transition: none !important;
+    }
+} 
